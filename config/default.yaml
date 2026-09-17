@@ -1,0 +1,73 @@
+# Real-Time AI Face-Swap Engine Configuration
+# Target: Windows 11, NVIDIA RTX 4050 Laptop GPU (6GB VRAM)
+
+camera:
+  device_index: -1         # -1 for auto-detect phone camera, or explicit index (0, 1, 2...)
+  device_name: ""          # Matches Android Webcam, DroidCam, Iriun, Camo, or generic
+  backend: "dshow"         # dshow (DirectShow) or msmf (Media Foundation)
+  width: 1280
+  height: 720
+  fps: 30
+  buffer_size: 1           # Strict bounded buffer (size=1) to prevent latency backlog
+
+detection:
+  model_path: "models/scrfd_10g_bnkps.onnx"
+  confidence_threshold: 0.5
+  nms_threshold: 0.4
+  input_size: [640, 640]
+  interval: 4              # Re-detect every N frames (runs fast tracking in-between)
+  execution_provider: "CUDAExecutionProvider"
+
+tracking:
+  enabled: true
+  bbox_smoothing: 0.5      # Exponential moving average (0.0=instant, 0.9=heavy smoothing)
+  landmark_smoothing: 0.5
+  lost_threshold_frames: 5 # Re-trigger full detector if confidence drops
+
+swap:
+  enabled: true
+  model_path: "models/inswapper_128.onnx"
+  source_image_path: "models/source/source.jpg"
+  blend_strength: 1.0      # 0.0 to 1.0
+  mask_feather: 15         # Pixels of Gaussian edge feathering
+  mask_erosion: 4          # Pixels of mask boundary erosion
+  mask_smoothing: 0.4      # Temporal smoothing for mask transitions
+  color_correction: true   # Lightweight statistical Reinhard color matching
+  execution_provider: "CUDAExecutionProvider"
+
+parsing:
+  enabled: false           # BiSeNet face parsing (Disabled by default for low latency)
+  model_path: "models/bisenet_face.onnx"
+  input_size: [512, 512]
+  interval: 3              # Run parser every N frames if enabled
+  execution_provider: "CUDAExecutionProvider"
+
+hair:
+  enabled: false           # Hair recolor & boundary preservation
+  mask_visualization: false
+  recolor_enabled: false
+  color_rgb: [180, 50, 50] # Target hair tint RGB
+  strength: 0.5            # 0.0 to 1.0
+  boundary_protection: true
+
+adaptive:
+  enabled: false           # Dynamic quality throttling (Default: OFF)
+  target_fps: 30.0
+  min_fps_threshold: 24.0
+  cooldown_frames: 60      # Hysteresis buffer to avoid oscillating settings
+
+output:
+  width: 1280
+  height: 720
+  fps: 30
+  virtual_camera_enabled: false
+  virtual_camera_device: "OBS Virtual Camera"
+
+debug:
+  enabled: false           # Debug HUD overlays (Default: OFF)
+  show_fps: true
+  show_bboxes: true
+  show_landmarks: true
+  show_masks: false
+  show_latency: true
+  send_overlays_to_vcam: false # Never leak debug overlays to virtual camera unless requested

@@ -1,0 +1,10 @@
+{
+  "name": "Real-Time AI Face-Swap Engine & Control Studio",
+  "description": "High-performance local real-time AI face-swap pipeline with Android rear camera input, bounded-buffer low latency, InSwapper-128, and OBS virtual camera.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

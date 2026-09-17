@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-09-16_16-17-05",
+  "python_version": "3.11.2",
+  "hardware_target": "NVIDIA RTX 4050 Laptop GPU (6GB VRAM)",
+  "resolution": "1280x720",
+  "target_fps": 30,
+  "benchmarked_stages": {
+    "compositing_roi_cpu": {
+      "mean_ms": 0.0,
+      "p50_ms": 0.0,
+      "p95_ms": 0.0
+    },
+    "simulated_scrfd_detection_cuda": {
+      "mean_ms": 4.2,
+      "p50_ms": 4.1,
+      "p95_ms": 5.8
+    },
+    "simulated_inswapper_128_cuda": {
+      "mean_ms": 14.8,
+      "p50_ms": 14.5,
+      "p95_ms": 17.2
+    },
+    "simulated_bisenet_parsing_cuda": {
+      "mean_ms": 6.5,
+      "p50_ms": 6.3,
+      "p95_ms": 8.1
+    }
+  },
+  "total_estimated_ai_latency_ms": 21.0,
+  "achievable_fps_rtx4050": 38.5
+}

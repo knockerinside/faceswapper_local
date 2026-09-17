@@ -1,0 +1,28 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+# Python & Virtual Envs
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Large Model Weights (Keep local)
+*.onnx
+*.engine
+*.pth
+*.pt
+*.safetensors
+*.dfm
+models/*.onnx
+
+# Logs & Temporary Files
+*.log
+.vscode/
+.idea/

@@ -1,0 +1,9 @@
+# Development and Testing Dependencies
+pytest>=7.4.0
+pytest-timeout>=2.1.0
+ruff>=0.1.9
+black>=23.12.1
+mypy>=1.8.0
+types-PyYAML>=6.0.12.12
+types-psutil>=5.9.5.17
+pyinstaller>=6.3.0
